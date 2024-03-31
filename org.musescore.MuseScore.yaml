@@ -44,6 +44,8 @@ modules:
       # icon
       - cp ${FLATPAK_DEST}/mscore/share/icons/hicolor/512x512/apps/mscore4portable.png org.musescore.MuseScore.png
       - install -Dm644 org.musescore.MuseScore.png -t /app/share/icons/hicolor/256x256/apps
+      - mkdir /app/extensions/
+      - mkdir /app/extensions/Plugins
 
 
 

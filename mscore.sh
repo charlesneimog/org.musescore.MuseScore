@@ -23,4 +23,6 @@ else
     echo "MuseSampler not Found, please install some sound fonts."
 fi
 
+
+QT_QPA_PLATFORM=xcb
 /app/mscore/bin/mscore4portable
