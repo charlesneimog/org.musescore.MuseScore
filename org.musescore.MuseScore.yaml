@@ -4,7 +4,6 @@ runtime: org.freedesktop.Platform
 runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
 command: mscore.sh
-
 finish-args:
   - --share=ipc
   - --socket=x11
@@ -16,7 +15,6 @@ finish-args:
   - --filesystem=xdg-run/pipewire-0
   - --system-talk-name=org.freedesktop.UPower
   - --env=APPIMAGE_EXTRACT_AND_RUN=1
-
 add-extensions:
   org.freedesktop.LinuxAudio.Plugins:
     directory: extensions/Plugins
@@ -26,7 +24,6 @@ add-extensions:
     merge-dirs: vst3
     no-autodownload: true
     autodelete: false
-
 modules:
   - name: musescore
     buildsystem: simple
@@ -35,24 +32,19 @@ modules:
       - ./musescore.AppImage --appimage-extract
       - mv squashfs-root ${FLATPAK_DEST}/mscore
       - install -Dm755 mscore.sh ${FLATPAK_DEST}/bin/mscore.sh
-
       # mime
       - cp ${FLATPAK_DEST}/mscore/share/applications/org.musescore.MuseScore4portable.desktop org.musescore.MuseScore.desktop
       - desktop-file-edit --set-icon org.musescore.MuseScore --set-key Exec --set-value 'mscore.sh %u' org.musescore.MuseScore.desktop
       - install -Dm644 org.musescore.MuseScore.desktop -t /app/share/applications
-
       # icon
       - cp ${FLATPAK_DEST}/mscore/share/icons/hicolor/512x512/apps/mscore4portable.png org.musescore.MuseScore.png
       - install -Dm644 org.musescore.MuseScore.png -t /app/share/icons/hicolor/256x256/apps
       - mkdir /app/extensions/
       - mkdir /app/extensions/Plugins
-
-
-
     sources:
       - type: file
         path: mscore.sh
-      - type: file 
+      - type: file
         dest-filename: musescore.AppImage
-        url: https://github.com/musescore/MuseScore/releases/download/v4.2.1/MuseScore-4.2.1.240230938-x86_64.AppImage
-        sha256: 07b00a863299499cf6a9f25dab85efb11d086c8947d822018782aec905cbfa35
+        url: https://github.com/musescore/MuseScore/releases/download/v4.3.1/MuseScore-Studio-4.3.1.241490902-x86_64.AppImage
+        sha256: 5df97ab11f20cf6dcbc03ee1cbbf2c4df2c74763df1bda8e977c2cfaa05f0cae
