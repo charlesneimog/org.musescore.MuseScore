@@ -1,21 +1,16 @@
----
 app-id: org.musescore.MuseScore
-
 base: io.qt.qtwebengine.BaseApp
 base-version: '5.15-23.08'
-
 runtime: org.kde.Platform
 runtime-version: '5.15-23.08'
 sdk: org.kde.Sdk
-
-command: mscore
+command: mscore.sh
 rename-icon: mscore
 copy-icon: true
 rename-mime-file: musescore.xml
 rename-mime-icons:
   - application-x-musescore
   - application-x-musescore+xml
-
 finish-args:
   # X11 + XShm access
   - --share=ipc
@@ -35,7 +30,6 @@ finish-args:
   - --filesystem=xdg-run/pipewire-0
   # Allow UPower access
   - --system-talk-name=org.freedesktop.UPower
-
 add-extensions:
   org.freedesktop.LinuxAudio.Plugins:
     directory: extensions/Plugins
@@ -53,6 +47,13 @@ cleanup-commands:
 cleanup:
   - /share/man
 modules:
+  - name: init-script
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 mscore.sh ${FLATPAK_DEST}/bin/mscore.sh
+    sources:
+      - type: file
+        path: mscore.sh
   - name: portmidi
     buildsystem: cmake-ninja
     config-opts:
@@ -75,7 +76,6 @@ modules:
       - /include
       - '*.a'
       - '*.la'
-
   - name: musescore
     buildsystem: cmake-ninja
     builddir: true
@@ -120,3 +120,4 @@ modules:
           - -d
           - vst3sdk/public.sdk
         path: patches/vst3_paths.patch
+  - name: musescore
